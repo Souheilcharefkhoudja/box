@@ -1,0 +1,353 @@
+<!-- ═══════════════════════════════════════════════════════
+     BOX BUSINESS — ORDER SECTION (image left, form right)
+     Drop this block anywhere inside your <body>.
+     Replace the .bb-image div with your <img> later.
+     ═══════════════════════════════════════════════════════ -->
+
+<style>
+.bb-section, .bb-section * { box-sizing: border-box; }
+
+.bb-section {
+  font-family: 'Barlow', system-ui, -apple-system, sans-serif;
+  max-width: 1080px;
+  margin: 60px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  color: #ffffff;
+}
+
+/* ── LEFT: Image placeholder (replace with your <img>) ── */
+.bb-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #0a0a0a;
+  border: 1px dashed #2a2a2a;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #444444;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── RIGHT: Form ── */
+.bb-form { margin: 0; padding: 0; }
+.bb-form * { margin: 0; padding: 0; box-sizing: border-box; }
+
+.bb-form-inner {
+  padding: 28px 24px;
+  background: #0a0a0a;
+  border: 1px solid #1f1f1f;
+  border-radius: 14px;
+}
+
+.bb-form .bb-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 6px;
+  color: #ffffff;
+}
+
+.bb-form .bb-sub {
+  text-align: center;
+  font-size: 12px;
+  color: #888888;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.bb-form .bb-shipping {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 600;
+}
+.bb-form .bb-shipping::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.bb-form .bb-field { margin-bottom: 14px; }
+
+.bb-form label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 6px;
+}
+
+.bb-form input,
+.bb-form select {
+  width: 100%;
+  padding: 12px 14px;
+  background: #000000;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.bb-form input:focus,
+.bb-form select:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+}
+
+.bb-form input::placeholder { color: #444444; }
+
+.bb-form .bb-qty { display: flex; gap: 8px; }
+.bb-form .bb-qty button {
+  flex: 1;
+  padding: 12px;
+  background: #000000;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.bb-form .bb-qty button:hover { border-color: #444444; }
+.bb-form .bb-qty button.active {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+.bb-form .bb-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  background: #000000;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  margin: 18px 0 16px;
+}
+.bb-form .bb-total-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888888;
+}
+.bb-form .bb-total-amount {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.bb-form .bb-submit {
+  width: 100%;
+  padding: 16px;
+  background: #ffffff;
+  border: none;
+  border-radius: 10px;
+  color: #000000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.bb-form .bb-submit:hover { background: #e5e5e5; transform: translateY(-1px); }
+.bb-form .bb-submit:active { transform: translateY(0); }
+
+.bb-form .bb-success { display: none; text-align: center; padding: 20px 0; }
+.bb-form .bb-success.show { display: block; }
+.bb-form .bb-success .bb-check {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: grid; place-items: center;
+  margin: 0 auto 14px;
+  color: #000000; font-size: 28px;
+  font-weight: bold;
+}
+.bb-form .bb-success h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 6px;
+  color: #ffffff;
+}
+.bb-form .bb-success p { color: #888888; font-size: 14px; }
+
+/* ── MOBILE: stack vertically (image on top, form below) ── */
+@media (max-width: 760px) {
+  .bb-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin: 30px auto;
+  }
+  .bb-image {
+    aspect-ratio: 4 / 3;
+    max-height: 320px;
+  }
+}
+</style>
+
+<section class="bb-section">
+
+  <!-- ▼ LEFT: image goes here. Replace this whole div with: -->
+  <!-- <img src="your-image.jpg" alt="Box Business" class="bb-image" style="object-fit: cover;"> -->
+  <div class="bb-image">
+    Image · 1:1
+  </div>
+  <!-- ▲ END image slot -->
+
+  <!-- RIGHT: order form -->
+  <form class="bb-form" id="bbForm" onsubmit="return bbSubmit(event)">
+    <div class="bb-form-inner">
+      <div class="bb-title">Box Business</div>
+      <div class="bb-sub">Commander votre box</div>
+      <div class="bb-shipping">Livraison gratuite</div>
+
+      <div id="bbFields">
+        <div class="bb-field">
+          <label for="bb-name">Nom complet</label>
+          <input type="text" id="bb-name" required placeholder="Votre nom et prénom">
+        </div>
+
+        <div class="bb-field">
+          <label for="bb-phone">Téléphone</label>
+          <input type="tel" id="bb-phone" required placeholder="0X XX XX XX XX" pattern="[0-9 ]{10,}">
+        </div>
+
+        <div class="bb-field">
+          <label for="bb-wilaya">Wilaya</label>
+          <select id="bb-wilaya" required>
+            <option value="">— Choisir votre wilaya —</option>
+            <option>01 - Adrar</option><option>02 - Chlef</option><option>03 - Laghouat</option>
+            <option>04 - Oum El Bouaghi</option><option>05 - Batna</option><option>06 - Béjaïa</option>
+            <option>07 - Biskra</option><option>08 - Béchar</option><option>09 - Blida</option>
+            <option>10 - Bouira</option><option>11 - Tamanrasset</option><option>12 - Tébessa</option>
+            <option>13 - Tlemcen</option><option>14 - Tiaret</option><option>15 - Tizi Ouzou</option>
+            <option>16 - Alger</option><option>17 - Djelfa</option><option>18 - Jijel</option>
+            <option>19 - Sétif</option><option>20 - Saïda</option><option>21 - Skikda</option>
+            <option>22 - Sidi Bel Abbès</option><option>23 - Annaba</option><option>24 - Guelma</option>
+            <option>25 - Constantine</option><option>26 - Médéa</option><option>27 - Mostaganem</option>
+            <option>28 - M'Sila</option><option>29 - Mascara</option><option>30 - Ouargla</option>
+            <option>31 - Oran</option><option>32 - El Bayadh</option><option>33 - Illizi</option>
+            <option>34 - Bordj Bou Arréridj</option><option>35 - Boumerdès</option><option>36 - El Tarf</option>
+            <option>37 - Tindouf</option><option>38 - Tissemsilt</option><option>39 - El Oued</option>
+            <option>40 - Khenchela</option><option>41 - Souk Ahras</option><option>42 - Tipaza</option>
+            <option>43 - Mila</option><option>44 - Aïn Defla</option><option>45 - Naâma</option>
+            <option>46 - Aïn Témouchent</option><option>47 - Ghardaïa</option><option>48 - Relizane</option>
+            <option>49 - Timimoun</option><option>50 - Bordj Badji Mokhtar</option><option>51 - Ouled Djellal</option>
+            <option>52 - Béni Abbès</option><option>53 - In Salah</option><option>54 - In Guezzam</option>
+            <option>55 - Touggourt</option><option>56 - Djanet</option><option>57 - El M'Ghair</option>
+            <option>58 - El Meniaa</option>
+          </select>
+        </div>
+
+        <div class="bb-field">
+          <label for="bb-address">Adresse</label>
+          <input type="text" id="bb-address" required placeholder="Commune, rue, point de repère">
+        </div>
+
+        <div class="bb-field">
+          <label>Quantité</label>
+          <div class="bb-qty">
+            <button type="button" data-q="1" class="active">1 Box</button>
+            <button type="button" data-q="2">2 Box</button>
+            <button type="button" data-q="3">3 Box</button>
+          </div>
+        </div>
+
+        <div class="bb-total">
+          <span class="bb-total-label">Total</span>
+          <span class="bb-total-amount" id="bb-total">15000 DA</span>
+        </div>
+
+        <button type="submit" class="bb-submit">Confirmer la commande</button>
+      </div>
+
+      <div class="bb-success" id="bbSuccess">
+        <div class="bb-check">✓</div>
+        <h3>Commande reçue</h3>
+        <p>Nous vous contacterons dans les plus brefs délais.</p>
+      </div>
+    </div>
+  </form>
+
+</section>
+
+<script>
+(function() {
+  var PRICE = 15000;
+  var qty = 1;
+  var btns = document.querySelectorAll('.bb-form .bb-qty button');
+  var totalEl = document.getElementById('bb-total');
+
+  btns.forEach(function(b) {
+    b.addEventListener('click', function() {
+      btns.forEach(function(x) { x.classList.remove('active'); });
+      this.classList.add('active');
+      qty = parseInt(this.dataset.q);
+      totalEl.textContent = (PRICE * qty).toLocaleString('fr-FR').replace(/\s/g, '') + ' DA';
+    });
+  });
+
+  window.bbSubmit = function(e) {
+    e.preventDefault();
+    // ▼ HOOK YOUR BACKEND / GOOGLE SHEET / WHATSAPP HERE ▼
+    var order = {
+      name:    document.getElementById('bb-name').value,
+      phone:   document.getElementById('bb-phone').value,
+      wilaya:  document.getElementById('bb-wilaya').value,
+      address: document.getElementById('bb-address').value,
+      qty:     qty,
+      total:   PRICE * qty
+    };
+    console.log('Order:', order);
+    // ▲ END HOOK ▲
+
+    document.getElementById('bbFields').style.display = 'none';
+    document.getElementById('bbSuccess').classList.add('show');
+    return false;
+  };
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     END BOX BUSINESS ORDER SECTION
+     ═══════════════════════════════════════════════════════ -->
