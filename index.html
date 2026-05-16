@@ -1,97 +1,203 @@
 <!-- ═══════════════════════════════════════════════════════
-     BOX BUSINESS — ORDER SECTION (image left, form right)
-     Drop this block anywhere inside your <body>.
-     Replace the .bb-image div with your <img> later.
+     BOX BUSINESS — ORDER SECTION
+     · Image gallery (left) + cascading order form (right)
+     · 58 wilayas + communes
+     · Price: 14 800 DA · Livraison GRATUITE
+     · Images: box-business-1.png, box-business-2.png
      ═══════════════════════════════════════════════════════ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 .bb-section, .bb-section * { box-sizing: border-box; }
 
 .bb-section {
+  --bb-gold: #d4af37;
+  --bb-gold-soft: #b8941f;
+  --bb-bg: #0a0a0a;
+  --bb-bg-2: #131313;
+  --bb-line: #1f1f1f;
+  --bb-line-2: #2a2a2a;
+  --bb-text: #ffffff;
+  --bb-muted: #888888;
+  --bb-dim: #444444;
+
   font-family: 'Barlow', system-ui, -apple-system, sans-serif;
-  max-width: 1080px;
+  max-width: 1180px;
   margin: 60px auto;
-  padding: 0 20px;
+  padding: 40px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 48px;
   align-items: center;
-  color: #ffffff;
+  color: var(--bb-text);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(212,175,55,0.10), transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(212,175,55,0.06), transparent 50%),
+    #000;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.bb-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(212,175,55,0.03) 50%, transparent 100%);
+  pointer-events: none;
 }
 
-/* ── LEFT: Image placeholder (replace with your <img>) ── */
+/* ── LEFT: Image gallery ── */
+.bb-gallery { width: 100%; position: relative; z-index: 1; }
+
 .bb-image {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: #0a0a0a;
-  border: 1px dashed #2a2a2a;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  color: #444444;
+  background: var(--bb-bg);
+  border: 1px solid var(--bb-line);
+  border-radius: 16px;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.08);
+}
+.bb-image img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: opacity 0.25s ease, transform 0.6s ease;
+}
+.bb-image:hover img { transform: scale(1.03); }
+
+.bb-ribbon {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: linear-gradient(135deg, var(--bb-gold), var(--bb-gold-soft));
+  color: #000;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-weight: 800; font-size: 12px;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 6px; z-index: 2;
+  box-shadow: 0 8px 20px -6px rgba(212,175,55,0.5);
+}
+
+.bb-thumbs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+.bb-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--bb-bg);
+  border: 1px solid var(--bb-line);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.bb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bb-thumb:hover { border-color: var(--bb-line-2); transform: translateY(-2px); }
+.bb-thumb.active {
+  border-color: var(--bb-gold);
+  box-shadow: 0 0 0 2px rgba(212,175,55,0.25), 0 10px 25px -8px rgba(212,175,55,0.3);
 }
 
 /* ── RIGHT: Form ── */
-.bb-form { margin: 0; padding: 0; }
-.bb-form * { margin: 0; padding: 0; box-sizing: border-box; }
+.bb-form { margin: 0; padding: 0; position: relative; z-index: 1; }
+.bb-form * { box-sizing: border-box; }
 
 .bb-form-inner {
-  padding: 28px 24px;
-  background: #0a0a0a;
-  border: 1px solid #1f1f1f;
-  border-radius: 14px;
+  padding: 32px 28px;
+  background: linear-gradient(180deg, var(--bb-bg-2), var(--bb-bg));
+  border: 1px solid var(--bb-line);
+  border-radius: 18px;
+  box-shadow:
+    0 30px 60px -20px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(212,175,55,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .bb-form .bb-title {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 3px;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 6px;
-  color: #ffffff;
+  margin: 0 0 4px;
+  color: var(--bb-text);
+  line-height: 1;
+}
+.bb-form .bb-title span {
+  background: linear-gradient(135deg, var(--bb-gold) 0%, #f0d97d 50%, var(--bb-gold-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .bb-form .bb-sub {
   text-align: center;
   font-size: 12px;
-  color: #888888;
-  letter-spacing: 1.5px;
+  color: var(--bb-muted);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin: 0 0 16px;
+  font-weight: 600;
 }
 
+/* Free shipping badge with pulse + shimmer */
 .bb-form .bb-shipping {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  font-size: 11px;
-  color: #ffffff;
-  letter-spacing: 1px;
+  gap: 8px;
+  font-size: 12px;
+  color: #000;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  margin-bottom: 24px;
-  padding: 6px 12px;
-  border: 1px solid #2a2a2a;
+  margin: 0 auto 24px;
+  padding: 9px 18px;
+  background: linear-gradient(135deg, var(--bb-gold), #f0d97d, var(--bb-gold-soft));
+  background-size: 200% 100%;
   border-radius: 999px;
   width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 600;
+  font-weight: 800;
+  font-family: 'Barlow Condensed', sans-serif;
+  position: relative;
+  animation: bb-shimmer 3s linear infinite, bb-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(212,175,55,0.4), 0 0 0 1px rgba(212,175,55,0.3);
 }
 .bb-form .bb-shipping::before {
   content: '';
-  width: 6px; height: 6px;
+  width: 8px; height: 8px;
   border-radius: 50%;
-  background: #ffffff;
+  background: #000;
+  animation: bb-blink 1.4s ease-in-out infinite;
+}
+@keyframes bb-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes bb-pulse {
+  0%,100% { box-shadow: 0 0 30px rgba(212,175,55,0.4), 0 0 0 1px rgba(212,175,55,0.3); }
+  50%     { box-shadow: 0 0 50px rgba(212,175,55,0.7), 0 0 0 1px rgba(212,175,55,0.5); }
+}
+@keyframes bb-blink {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%     { opacity: 0.4; transform: scale(0.7); }
 }
 
 .bb-form .bb-field { margin-bottom: 14px; }
+
+.bb-form .bb-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.bb-form .bb-row .bb-field { margin-bottom: 0; }
 
 .bb-form label {
   display: block;
@@ -99,40 +205,52 @@
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #888888;
+  color: var(--bb-muted);
   margin-bottom: 6px;
 }
 
 .bb-form input,
 .bb-form select {
   width: 100%;
-  padding: 12px 14px;
-  background: #000000;
-  border: 1px solid #1f1f1f;
+  padding: 13px 14px;
+  background: #000;
+  border: 1px solid var(--bb-line);
   border-radius: 10px;
-  color: #ffffff;
+  color: var(--bb-text);
   font-family: inherit;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
+.bb-form select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='none' stroke='%23d4af37' stroke-width='1.8' stroke-linecap='round' d='M1 1l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.bb-form select:disabled { opacity: 0.5; cursor: not-allowed; }
+.bb-form select option { background: #000; color: var(--bb-text); }
 
 .bb-form input:focus,
 .bb-form select:focus {
-  border-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+  border-color: var(--bb-gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+  background: #050505;
 }
-
-.bb-form input::placeholder { color: #444444; }
+.bb-form input::placeholder { color: var(--bb-dim); }
 
 .bb-form .bb-qty { display: flex; gap: 8px; }
 .bb-form .bb-qty button {
   flex: 1;
-  padding: 12px;
-  background: #000000;
-  border: 1px solid #1f1f1f;
+  padding: 13px 8px;
+  background: #000;
+  border: 1px solid var(--bb-line);
   border-radius: 10px;
-  color: #ffffff;
+  color: var(--bb-text);
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -140,22 +258,35 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-.bb-form .bb-qty button:hover { border-color: #444444; }
+.bb-form .bb-qty button:hover {
+  border-color: var(--bb-gold-soft);
+  color: var(--bb-gold);
+}
 .bb-form .bb-qty button.active {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #000000;
+  background: linear-gradient(135deg, var(--bb-gold), var(--bb-gold-soft));
+  border-color: var(--bb-gold);
+  color: #000;
+  box-shadow: 0 8px 20px -6px rgba(212,175,55,0.4);
 }
 
 .bb-form .bb-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 18px;
-  background: #000000;
-  border: 1px solid #1f1f1f;
-  border-radius: 10px;
+  padding: 18px;
+  background: linear-gradient(135deg, #000, #0a0a0a);
+  border: 1px solid var(--bb-line);
+  border-radius: 12px;
   margin: 18px 0 16px;
+  position: relative;
+  overflow: hidden;
+}
+.bb-form .bb-total::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--bb-gold), var(--bb-gold-soft));
 }
 .bb-form .bb-total-label {
   font-family: 'Barlow Condensed', sans-serif;
@@ -163,83 +294,124 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #888888;
+  color: var(--bb-muted);
 }
 .bb-form .bb-total-amount {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 24px;
-  font-weight: 800;
-  color: #ffffff;
+  font-size: 28px;
+  font-weight: 900;
   letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--bb-gold) 0%, #f0d97d 50%, var(--bb-gold-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .bb-form .bb-submit {
   width: 100%;
-  padding: 16px;
-  background: #ffffff;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--bb-gold) 0%, #f0d97d 50%, var(--bb-gold-soft) 100%);
+  background-size: 200% 100%;
   border: none;
-  border-radius: 10px;
-  color: #000000;
+  border-radius: 12px;
+  color: #000;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  box-shadow: 0 15px 35px -10px rgba(212,175,55,0.5), 0 0 0 1px rgba(212,175,55,0.3);
+  position: relative;
+  overflow: hidden;
 }
-.bb-form .bb-submit:hover { background: #e5e5e5; transform: translateY(-1px); }
+.bb-form .bb-submit::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.6s;
+}
+.bb-form .bb-submit:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -10px rgba(212,175,55,0.6), 0 0 0 1px rgba(212,175,55,0.5);
+}
+.bb-form .bb-submit:hover::before { left: 100%; }
 .bb-form .bb-submit:active { transform: translateY(0); }
 
-.bb-form .bb-success { display: none; text-align: center; padding: 20px 0; }
-.bb-form .bb-success.show { display: block; }
+.bb-form .bb-success { display: none; text-align: center; padding: 30px 0; }
+.bb-form .bb-success.show { display: block; animation: bb-fadeIn 0.4s ease; }
+@keyframes bb-fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 .bb-form .bb-success .bb-check {
-  width: 56px; height: 56px;
+  width: 64px; height: 64px;
   border-radius: 50%;
-  background: #ffffff;
+  background: linear-gradient(135deg, var(--bb-gold), var(--bb-gold-soft));
   display: grid; place-items: center;
-  margin: 0 auto 14px;
-  color: #000000; font-size: 28px;
+  margin: 0 auto 16px;
+  color: #000; font-size: 32px;
   font-weight: bold;
+  box-shadow: 0 15px 35px -10px rgba(212,175,55,0.6);
+  animation: bb-pop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes bb-pop {
+  0%   { transform: scale(0); }
+  100% { transform: scale(1); }
 }
 .bb-form .bb-success h3 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 22px; font-weight: 800;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  margin-bottom: 6px;
-  color: #ffffff;
+  font-size: 24px; font-weight: 900;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin: 0 0 8px;
+  color: var(--bb-text);
 }
-.bb-form .bb-success p { color: #888888; font-size: 14px; }
+.bb-form .bb-success p { color: var(--bb-muted); font-size: 14px; margin: 0; }
 
-/* ── MOBILE: stack vertically (image on top, form below) ── */
+/* ── MOBILE ── */
 @media (max-width: 760px) {
   .bb-section {
     grid-template-columns: 1fr;
-    gap: 24px;
-    margin: 30px auto;
+    gap: 28px;
+    margin: 20px auto;
+    padding: 24px 16px;
+    border-radius: 16px;
   }
-  .bb-image {
-    aspect-ratio: 4 / 3;
-    max-height: 320px;
-  }
+  .bb-form-inner { padding: 24px 18px; }
+  .bb-form .bb-title { font-size: 30px; }
+  .bb-form .bb-total-amount { font-size: 24px; }
+  .bb-form .bb-row { grid-template-columns: 1fr; }
 }
 </style>
 
 <section class="bb-section">
 
-  <!-- ▼ LEFT: image goes here. Replace this whole div with: -->
-  <!-- <img src="your-image.jpg" alt="Box Business" class="bb-image" style="object-fit: cover;"> -->
-  <div class="bb-image">
-    Image · 1:1
+  <!-- LEFT: image gallery -->
+  <div class="bb-gallery">
+    <div class="bb-image">
+      <span class="bb-ribbon">★ Offre limitée</span>
+      <img id="bbMainImage" src="box-business-1.png" alt="Box Business — Vue principale">
+    </div>
+    <div class="bb-thumbs">
+      <button type="button" class="bb-thumb active" data-src="box-business-1.png" aria-label="Vue 1">
+        <img src="box-business-1.png" alt="Box Business — Avec bouteilles">
+      </button>
+      <button type="button" class="bb-thumb" data-src="box-business-2.png" aria-label="Vue 2">
+        <img src="box-business-2.png" alt="Box Business — Vue de dessus">
+      </button>
+    </div>
   </div>
-  <!-- ▲ END image slot -->
 
   <!-- RIGHT: order form -->
   <form class="bb-form" id="bbForm" onsubmit="return bbSubmit(event)">
     <div class="bb-form-inner">
-      <div class="bb-title">Box Business</div>
+      <h2 class="bb-title">Box <span>Business</span></h2>
       <div class="bb-sub">Commander votre box</div>
-      <div class="bb-shipping">Livraison gratuite</div>
+      <div class="bb-shipping">★ Livraison gratuite — 58 wilayas ★</div>
 
       <div id="bbFields">
         <div class="bb-field">
@@ -252,36 +424,24 @@
           <input type="tel" id="bb-phone" required placeholder="0X XX XX XX XX" pattern="[0-9 ]{10,}">
         </div>
 
-        <div class="bb-field">
-          <label for="bb-wilaya">Wilaya</label>
-          <select id="bb-wilaya" required>
-            <option value="">— Choisir votre wilaya —</option>
-            <option>01 - Adrar</option><option>02 - Chlef</option><option>03 - Laghouat</option>
-            <option>04 - Oum El Bouaghi</option><option>05 - Batna</option><option>06 - Béjaïa</option>
-            <option>07 - Biskra</option><option>08 - Béchar</option><option>09 - Blida</option>
-            <option>10 - Bouira</option><option>11 - Tamanrasset</option><option>12 - Tébessa</option>
-            <option>13 - Tlemcen</option><option>14 - Tiaret</option><option>15 - Tizi Ouzou</option>
-            <option>16 - Alger</option><option>17 - Djelfa</option><option>18 - Jijel</option>
-            <option>19 - Sétif</option><option>20 - Saïda</option><option>21 - Skikda</option>
-            <option>22 - Sidi Bel Abbès</option><option>23 - Annaba</option><option>24 - Guelma</option>
-            <option>25 - Constantine</option><option>26 - Médéa</option><option>27 - Mostaganem</option>
-            <option>28 - M'Sila</option><option>29 - Mascara</option><option>30 - Ouargla</option>
-            <option>31 - Oran</option><option>32 - El Bayadh</option><option>33 - Illizi</option>
-            <option>34 - Bordj Bou Arréridj</option><option>35 - Boumerdès</option><option>36 - El Tarf</option>
-            <option>37 - Tindouf</option><option>38 - Tissemsilt</option><option>39 - El Oued</option>
-            <option>40 - Khenchela</option><option>41 - Souk Ahras</option><option>42 - Tipaza</option>
-            <option>43 - Mila</option><option>44 - Aïn Defla</option><option>45 - Naâma</option>
-            <option>46 - Aïn Témouchent</option><option>47 - Ghardaïa</option><option>48 - Relizane</option>
-            <option>49 - Timimoun</option><option>50 - Bordj Badji Mokhtar</option><option>51 - Ouled Djellal</option>
-            <option>52 - Béni Abbès</option><option>53 - In Salah</option><option>54 - In Guezzam</option>
-            <option>55 - Touggourt</option><option>56 - Djanet</option><option>57 - El M'Ghair</option>
-            <option>58 - El Meniaa</option>
-          </select>
+        <div class="bb-row">
+          <div class="bb-field">
+            <label for="bb-wilaya">Wilaya</label>
+            <select id="bb-wilaya" required>
+              <option value="" disabled selected>— Choisir —</option>
+            </select>
+          </div>
+          <div class="bb-field">
+            <label for="bb-commune">Commune</label>
+            <select id="bb-commune" required disabled>
+              <option value="" disabled selected>Choisir d'abord la wilaya</option>
+            </select>
+          </div>
         </div>
 
         <div class="bb-field">
-          <label for="bb-address">Adresse</label>
-          <input type="text" id="bb-address" required placeholder="Commune, rue, point de repère">
+          <label for="bb-address">Adresse <span style="text-transform:none;color:#666;font-weight:500">(optionnel)</span></label>
+          <input type="text" id="bb-address" placeholder="Rue, numéro, point de repère">
         </div>
 
         <div class="bb-field">
@@ -295,10 +455,10 @@
 
         <div class="bb-total">
           <span class="bb-total-label">Total</span>
-          <span class="bb-total-amount" id="bb-total">15000 DA</span>
+          <span class="bb-total-amount" id="bb-total">14 800 DA</span>
         </div>
 
-        <button type="submit" class="bb-submit">Confirmer la commande</button>
+        <button type="submit" class="bb-submit">✓ Confirmer la commande</button>
       </div>
 
       <div class="bb-success" id="bbSuccess">
@@ -313,27 +473,172 @@
 
 <script>
 (function() {
-  var PRICE = 15000;
-  var qty = 1;
-  var btns = document.querySelectorAll('.bb-form .bb-qty button');
-  var totalEl = document.getElementById('bb-total');
 
-  btns.forEach(function(b) {
-    b.addEventListener('click', function() {
-      btns.forEach(function(x) { x.classList.remove('active'); });
+  // ═══ DATA: 58 wilayas + communes ═══
+  const wilayas = [
+    {code:"01",name:"Adrar"},{code:"02",name:"Chlef"},{code:"03",name:"Laghouat"},
+    {code:"04",name:"Oum El Bouaghi"},{code:"05",name:"Batna"},{code:"06",name:"Béjaïa"},
+    {code:"07",name:"Biskra"},{code:"08",name:"Béchar"},{code:"09",name:"Blida"},
+    {code:"10",name:"Bouira"},{code:"11",name:"Tamanrasset"},{code:"12",name:"Tébessa"},
+    {code:"13",name:"Tlemcen"},{code:"14",name:"Tiaret"},{code:"15",name:"Tizi Ouzou"},
+    {code:"16",name:"Alger"},{code:"17",name:"Djelfa"},{code:"18",name:"Jijel"},
+    {code:"19",name:"Sétif"},{code:"20",name:"Saïda"},{code:"21",name:"Skikda"},
+    {code:"22",name:"Sidi Bel Abbès"},{code:"23",name:"Annaba"},{code:"24",name:"Guelma"},
+    {code:"25",name:"Constantine"},{code:"26",name:"Médéa"},{code:"27",name:"Mostaganem"},
+    {code:"28",name:"M'Sila"},{code:"29",name:"Mascara"},{code:"30",name:"Ouargla"},
+    {code:"31",name:"Oran"},{code:"32",name:"El Bayadh"},{code:"33",name:"Illizi"},
+    {code:"34",name:"Bordj Bou Arréridj"},{code:"35",name:"Boumerdès"},{code:"36",name:"El Tarf"},
+    {code:"37",name:"Tindouf"},{code:"38",name:"Tissemsilt"},{code:"39",name:"El Oued"},
+    {code:"40",name:"Khenchela"},{code:"41",name:"Souk Ahras"},{code:"42",name:"Tipaza"},
+    {code:"43",name:"Mila"},{code:"44",name:"Aïn Defla"},{code:"45",name:"Naâma"},
+    {code:"46",name:"Aïn Témouchent"},{code:"47",name:"Ghardaïa"},{code:"48",name:"Relizane"},
+    {code:"49",name:"Timimoun"},{code:"50",name:"Bordj Badji Mokhtar"},{code:"51",name:"Ouled Djellal"},
+    {code:"52",name:"Béni Abbès"},{code:"53",name:"In Salah"},{code:"54",name:"In Guezzam"},
+    {code:"55",name:"Touggourt"},{code:"56",name:"Djanet"},{code:"57",name:"El M'Ghair"},
+    {code:"58",name:"El Meniaa"}
+  ];
+
+  const communesData = {
+    "01":["Adrar","Tamest","Charouine","Reggane","In Zghmir","Tit","Ksar Kaddour","Sali","Bouda","Timokten","Aougrout","Fenoughil","Tamentit","Zaouiet Kounta"],
+    "02":["Chlef","Tenes","Benairia","El Karimia","Taougrit","Beni Haoua","Sobha","Harchoun","Ouled Fares","Sidi Akkacha","Boukadir","Beni Rached","Talassa","Herenfa","Oued Goussine"],
+    "03":["Laghouat","Ksar El Hirane","El Kihia","Sidi Makhlouf","Hassi R'Mel","Aflou","El Ghicha","Oued Morra","Hassi Delaa","Tadjemout","Tadjrouna","Brida","El Assafia","Kheneg","Gueltat Sidi Saad"],
+    "04":["Oum El Bouaghi","Ain Beida","Ain M'lila","F'Kirina","Ain Babouche","Ksar Sbahi","Dhalaa","Sigus","Ain Diss","Ain Kercha","Meskiana","Souk Naamane","Telerghma","Gosbat","Oued Nini"],
+    "05":["Batna","Ghassira","Maafa","Merouana","Tazoult","N'Gaous","Seggana","Arris","Timgad","Ichmoul","Fesdis","Rahouia","Ain Yagout","Bouzina","Chemora"],
+    "06":["Béjaïa","Amizour","Ferraoun","Taourirt Ighil","Chemini","Taskriout","Tamokra","Draa El Caid","Kherraga","Sidi Aich","El Kseur","Melbou","Akfadou","Toudja","Tifra","Souk El Tenine","Mekla","Boudjellil","Tazmalt"],
+    "07":["Biskra","Ouled Djellal","Sidi Okba","M'Chouneche","El Kantara","Ain Zaatout","Tolga","Zeribet El Oued","El Outaya","Branis","Djemorah","Tanthelik","Ain Naga","Lioua","Lichana"],
+    "08":["Béchar","Meridja","Lahmar","Boukais","Mogheul","Abadla","Taghit","Erg Ferradj","Beni Ounif","Kenadsa","Igli","El Ouata","Tabelbala","Ouled Khoudir","Kerzaz"],
+    "09":["Blida","Boufarik","Bougara","El Affroun","Oued El Alleug","Mouzaia","Meftah","Larbaa","Bouinan","Guerrouaou","Ain Romana","Soumaa","Bouarfa","Chiffa","Ouled Yaich"],
+    "10":["Bouira","Aïn Bessem","Bir Ghbalou","Lakhdaria","El Hachimia","Souk El Khemis","Kadiria","Haizer","Taghzout","M'Chedellah","Ridane","Maala","Aomar","Djebahia","Bouderbala"],
+    "11":["Tamanrasset","Abalessa","Idles","Tazrouk","In Ghar","In Amguel","Aguemoun","Tin Zaouatine","Arak","Foggaret Ezzaouia"],
+    "12":["Tébessa","Bir El Ater","Cheria","Stah Guentis","El Aouinet","El Ogla","Safsaf El Ouesra","Hammamet","Ain Zerga","Negrine","Bir El Mokadem","El Kouif","Morsott","El Ogla Malha","Oum Ali","Ouenza","Ferkane"],
+    "13":["Tlemcen","Sebdou","Ghazaouet","Remchi","Beni Snous","Maghnia","Hennaya","Bensekrane","Ouled Mimoun","Ain Youcef","Bab El Assa","Chetouane","Fellaoucene","Ain Fezza","Aïn Nehala","Marhoum","Amieur","Marsa Ben M'Hidi"],
+    "14":["Tiaret","Medroussa","Ain Bouchekif","Sidi Ali Mellal","Ain Zair","Dahmouni","Rahouia","Sougueur","Mellakou","Ksar Chellala","Frenda","Takhemaret","Hamadia","Serghine","Nadorah"],
+    "15":["Tizi Ouzou","Ain El Hammam","Larba Nath Irathen","Mekla","Beni Douala","Boghni","Draa El Mizan","Ouacif","Azeffoun","Tizi Ghenif","Iferhounene","Bouzguen","Yakouren","Freha","Tadmait","Aghribs","Ifigha","Zekri","Assi Youcef"],
+    "16":["Alger Centre","Sidi M'Hamed","El Madania","Bab El Oued","Bologhine","Casbah","Oued Koriche","Bir Mourad Rais","El Biar","Bouzareah","Birkhadem","El Harrach","Baraki","Oued Smar","Bachdjerrah","Hussein Dey","Kouba","Bourouba","Dar El Beida","Bab Ezzouar","Ben Aknoun","Dely Ibrahim","Hammamet","Rais Hamidou","Djasr Kasentina","El Mouradia","Hydra","Mohammadia","Bordj El Kiffan","El Magharia","Beni Messous","Les Eucalyptus","Birtouta","Tessala El Merdja","Ouled Chebel","Sidi Moussa","Ain Taya","Bordj El Bahri","El Marsa","H'Raoua","Rouiba","Reghaia","Ain Benian","Staoueli","Zeralda","Mahelma","Rahmania","Souidania","Cheraga","Ouled Fayet","El Achour","Draria","Douera","Baba Hassen","Khraicia","Saoula"],
+    "17":["Djelfa","Messaad","Hassi Bahbah","Ain Maabed","Dar Chioukh","Sidi Ladjel","Charef","El Idrissia","Beni Yenni","Guettara","Birine","Ain El Ibel","Hassi El Euch","M'Liliha","Ain Feka"],
+    "18":["Jijel","Taher","El Aouana","Chekfa","Settara","El Milia","Sidi Maarouf","Erraguene","Ziama Mansouriah","El Kennar","Ghebala","Ouled Yahia Khedrouce","Texenna","Djemaa Beni Habibi","Bordj T'har"],
+    "19":["Sétif","El Eulma","Ain Arnat","Guidjel","Beni Aziz","Amoucha","Babor","Ain Oulmene","Bouandas","Tizi N'Bechar","Hammam Guergour","Salah Bey","Bir El Arch","Maoklane","Boutaleb"],
+    "20":["Saïda","Sidi Boubekeur","Ouled Brahim","Tircount","Ain Soltane","Ouled Khaled","Youb","Moulay Larbi","Maamora","Ain Hadjar","Hounet","Sidi Khaled","Sidi Amar","Ain Sekhouna","Thala"],
+    "21":["Skikda","El Hadaik","Azzaba","Ben Azzouz","Collo","Tamalous","Filfila","Sidi Mezghiche","Ain Bouziane","Zerdezas","Ouled Habbaba","Ramdane Djamel","Oued Zitoun","Ouldja Boulballout","Kanoua"],
+    "22":["Sidi Bel Abbès","Tessala","Sidi Brahim","Mostefa Ben Brahim","Telagh","Sidi Ali Boussidi","Maroufia","Sidi Lahcene","Tenira","Moulay Slissen","Mezaourou","Redjem Demouche","Ain Tindamine","Tilmouni","Badredine El Mokrani"],
+    "23":["Annaba","Seraidi","Berrahel","El Hadjar","El Bouni","Ain Berda","Chetaibi","Sidi Amar","Treat","Oued El Aneb","Eulma","El Ain Ragouba"],
+    "24":["Guelma","Hammam Debagh","Bouchegouf","Djeballah Khemissi","Ain Makhlouf","Oued Zenati","Ain Ben Beida","Bouati Mahmoud","Medjez Sfa","Hammam N'Bail","Boumahra Ahmed","Guelaat Bou Sbaa","Nechmaya","Ain Lahdjar","Khezara"],
+    "25":["Constantine","El Khroub","Hamma Bouziane","Ibn Ziad","Zighoud Youcef","Ain Abid","Messaoud Boudjriou","Beni Hamiden","Didouche Mourad","Draa Ben Khedda"],
+    "26":["Médéa","Berrouaghia","Ouzera","El Omaria","Souagui","Ksar El Boukhari","Aziz","Chabounia","Tablat","Mezerana","Tamesguida","Benchicao","Seghouane","Boghar","Sidi Naamane"],
+    "27":["Mostaganem","Ain Nouicy","Hassi Mamach","Stidia","Ain Tedles","Sour","Mesra","Ain Sidi Cherif","Bouguirat","Kheir Eddine","Sidi Lakhdar","Mansourah","Ouled Boughalem","Djidiouia","Sidi Bellater"],
+    "28":["M'Sila","Medjedel","Hammam Dhalaa","Ouled Derradj","Ain El Hadjel","Khoubana","Ouled Addi Guebala","Tarmount","Sidi Ameur","Maadid","Ain El Melh","Beni Ilmane","Oultene","Djebel Messaad","Sidi M'Hamed"],
+    "29":["Mascara","Sig","Bou Henni","El Bordj","Mohammadia","Tighenif","Oued Taria","Ain Fekan","Hachem","Ghriss","Zahana","Hanacha","Maoussa","Oued El Abtal","Ferraguig"],
+    "30":["Ouargla","Hassi Messaoud","N'Goussa","Rouissat","Ain Beida","El Borma","Tebesbest","Nezla","Sidi Slimane","Balidat Ameur","Taibet","Temacine","El Harihira","Megarine"],
+    "31":["Oran","Es Senia","Bir El Djir","Sidi Chami","Gdyel","Marsa","Boufatis","Ain El Turk","El Kala","Arzew","Bethioua","Ain El Kerma","Hassi Ben Okba","Misserghin","Mers El Kebir","Oued Tlelat","Tafraoui","Bousfer","El Ancor"],
+    "32":["El Bayadh","Brezina","Rogassa","El Abiodh Sidi Cheikh","Ghassoul","Boualem","Sidi Ameur","Chellala","Arbaouat","Sidi Slimane","Sidi Tifour","Kef El Ahmar","El Bnoud","Ain El Orak","Cheguig"],
+    "33":["Illizi","Debdeb","Bordj Omar Driss","Tin Fouye Tabankort","In Amenas","Bordj El Haouass"],
+    "34":["Bordj Bou Arréridj","Ras El Oued","Bordj Zemoura","Mansoura","El M'hir","Ben Daoud","El Achir","Ain Taghrout","Sidi Embarek","Belimour","Medjana","Teniet En Nasr","Djaafra","Tixter","Bir Kasdali"],
+    "35":["Boumerdès","Boudouaou","Bordj Menaiel","Issers","Naciria","Thenia","Dellys","Baghlia","Sidi Daoud","Khemis El Khechna","Chabet El Ameur","Taourga","Ouled Hedadj","Zemmouri","Laghata"],
+    "36":["El Tarf","El Kala","Bouhadjar","Ben M'Hidi","El Aioun","Souarekh","Zerizer","Boutheldja","Ain El Assel","Berrihane","Lac des Oiseaux","Oued Zitoun","Hammam Beni Salah","Asfour"],
+    "37":["Tindouf","Oum El Assel"],
+    "38":["Tissemsilt","Theniet El Had","Bordj Emir Abdelkader","Lardjem","Beni Chaib","Ammari","Ouled Bessam","Maacem","Bordj Bounaama","Sidi Slimane","Melaab","Sidi Lantri","Khemisti","Layoune","Youssoufia"],
+    "39":["El Oued","Robbah","Oued El Alenda","Beni Guecha","Nakhla","Guemar","Hamraia","Reguiba","Debila","Magrane","Mih Ouansa","Hassi Khalifa","Trifaoui","Taleb Larbi","Bayadha"],
+    "40":["Khenchela","Kais","El Hamma","Ain Touila","Taouzianat","Baghai","Chelia","Babar","Fais","Djellal","Ouled Rechache","M'Toussa","Bouhmama","El Oueldja","Remila"],
+    "41":["Souk Ahras","Sedrata","Haddada","Mechroha","Ain Soltane","Ouled Drareb","Tiffech","Taoura","Zaarouria","Bir Bouhouche","Madjer","Sidi Fredj","Oum El Adhaim","Kheiter","M'Daourouch"],
+    "42":["Tipaza","Hadjout","Sidi Amar","Gouraya","Cherchell","Damous","Menaceur","Fouka","Bou Ismail","Kolea","Attatba","Ahmar El Ain","Sidi Ghiles","Bou Haroun","Nador"],
+    "43":["Mila","Ferdjioua","Chelghab Laid","Tassadane Haddada","Teleghma","Oued Athmania","Tadjenanet","Grarem Gouga","Terraiibana","Ahmed Rached","Rouached","Aïn Mellouk","Mihoub","Sidi Merouane","Ghebala"],
+    "44":["Aïn Defla","Mekhatria","Bathia","Aïn Bouyahia","Tiberkanine","Khemis Miliana","Hoceinia","Rouina","Boumedfaa","Aïn Lechiakh","Djemaa Ouled Cheikh","Abi El Khasibs","Tacheta Zegagha","Ain Soltane","El Attaf"],
+    "45":["Naâma","Mecheria","Aïn Séfra","Tiout","Sfissifa","Moghrar","Djéniane Bourzeg","Kasdir","El Biodh","Ain Ben Khelil"],
+    "46":["Aïn Témouchent","Hammam Bouhadjar","Aghlal","Ain El Arbaa","Ain Kihel","Beni Saf","Ouled Boudjemaa","Chentouf","Sidi Safi","Terga","Aoubellil","Ain Tolba","Sidi Ben Adda","Hassi El Ghella","Bou Zedjar"],
+    "47":["Ghardaïa","Berriane","Metlili","El Atteuf","Zelfana","Sebseb","Bounoura","Mansoura","Hassi Fehal","Dhayet Bendhahoua","Igrarene","Taghrdait"],
+    "48":["Relizane","Bendaoud","Sidi M'Hamed Ben Ali","El H'Madna","Ain Tarik","Oued Righ","Mediouna","Oued El Djemaa","Mazouna","Ramka","Matmar","Zemmoura","Sidi Khettab","Beni Dergoun","Sidi Lazreg"],
+    "49":["Timimoun","Ouled Said","Tinerkouk","Ksar Kaddour","Metarfa","Talmine","Charouine","Aougrout","Deldoul","Ksabi"],
+    "50":["Bordj Badji Mokhtar","Timiaouine","In Zghmir"],
+    "51":["Ouled Djellal","Sidi Khaled","Ras El Miad","Besbes","Chaiba","Doucen","Beni Ikhlef","M'Liliha"],
+    "52":["Béni Abbès","Tabelbala","Igli","Kerzaz","Ouled Khoudir","Tamtert","Timoudi","Ksar El Maadjed","El Ouata"],
+    "53":["In Salah","In Ghar","Foggaret Ezzaouia","Tin Amzi"],
+    "54":["In Guezzam","Tin Zaouatine"],
+    "55":["Touggourt","Taibet","Temacine","Megarine","El Harihira","Balidat Ameur","M'Naguer","Benaceur","Sidi Slimane","Blidet Amor"],
+    "56":["Djanet","El Mihan","Bordj El Haouass"],
+    "57":["El M'Ghair","Oum Touyour","Sidi Khelil","Still","Djamaa","M'Rara","Tendla","Sidi Amrane","Mih Ouensa"],
+    "58":["El Meniaa","Hassi Fehal","Hassi Gara","Tin El Koum"]
+  };
+
+  // ═══ Image gallery swap ═══
+  const mainImg = document.getElementById('bbMainImage');
+  const thumbs  = document.querySelectorAll('.bb-thumb');
+  thumbs.forEach(function(t) {
+    t.addEventListener('click', function() {
+      thumbs.forEach(function(x) { x.classList.remove('active'); });
       this.classList.add('active');
-      qty = parseInt(this.dataset.q);
-      totalEl.textContent = (PRICE * qty).toLocaleString('fr-FR').replace(/\s/g, '') + ' DA';
+      mainImg.style.opacity = '0';
+      setTimeout(function() {
+        mainImg.src = t.dataset.src;
+        mainImg.style.opacity = '1';
+      }, 150);
     });
   });
 
+  // ═══ Populate wilaya dropdown ═══
+  const wilayaSel  = document.getElementById('bb-wilaya');
+  const communeSel = document.getElementById('bb-commune');
+
+  wilayas.forEach(function(w) {
+    const o = document.createElement('option');
+    o.value = w.code;
+    o.textContent = w.code + ' — ' + w.name;
+    wilayaSel.appendChild(o);
+  });
+
+  // ═══ Cascading commune dropdown ═══
+  wilayaSel.addEventListener('change', function() {
+    const code = wilayaSel.value;
+    const list = (communesData[code] || []).slice().sort(function(a, b) {
+      return a.localeCompare(b, 'fr');
+    });
+
+    communeSel.innerHTML = '';
+    if(list.length === 0) {
+      communeSel.disabled = true;
+      const o = document.createElement('option');
+      o.value = ''; o.textContent = 'Aucune commune';
+      o.disabled = true; o.selected = true;
+      communeSel.appendChild(o);
+      return;
+    }
+
+    communeSel.disabled = false;
+    const placeholder = document.createElement('option');
+    placeholder.value = ''; placeholder.textContent = '— Choisir la commune —';
+    placeholder.disabled = true; placeholder.selected = true;
+    communeSel.appendChild(placeholder);
+
+    list.forEach(function(name) {
+      const o = document.createElement('option');
+      o.value = name; o.textContent = name;
+      communeSel.appendChild(o);
+    });
+  });
+
+  // ═══ Quantity + total ═══
+  const PRICE = 14800;
+  let qty = 1;
+  const qtyBtns = document.querySelectorAll('.bb-form .bb-qty button');
+  const totalEl = document.getElementById('bb-total');
+
+  qtyBtns.forEach(function(b) {
+    b.addEventListener('click', function() {
+      qtyBtns.forEach(function(x) { x.classList.remove('active'); });
+      this.classList.add('active');
+      qty = parseInt(this.dataset.q);
+      totalEl.textContent = (PRICE * qty).toLocaleString('fr-FR') + ' DA';
+    });
+  });
+
+  // ═══ Form submit ═══
   window.bbSubmit = function(e) {
     e.preventDefault();
     // ▼ HOOK YOUR BACKEND / GOOGLE SHEET / WHATSAPP HERE ▼
-    var order = {
+    const order = {
       name:    document.getElementById('bb-name').value,
       phone:   document.getElementById('bb-phone').value,
-      wilaya:  document.getElementById('bb-wilaya').value,
+      wilaya:  wilayaSel.options[wilayaSel.selectedIndex].textContent,
+      commune: communeSel.value,
       address: document.getElementById('bb-address').value,
       qty:     qty,
       total:   PRICE * qty
@@ -345,6 +650,7 @@
     document.getElementById('bbSuccess').classList.add('show');
     return false;
   };
+
 })();
 </script>
 
